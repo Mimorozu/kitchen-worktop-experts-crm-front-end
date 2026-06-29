@@ -1,16 +1,19 @@
 import axios from 'axios'
 import { getToken } from './auth'
 
-const API_URL = 'http://localhost:5000/api'
+const API_URL = 'kitchen-worktop-experts-crm-api-production.up.railway.app'
 
-// Axios instance with the JWT token automatically attached to every request
 const api = axios.create({
-  baseURL: API_URL,
-  headers: {
-    get Authorization() {
-      return `Bearer ${getToken()}`
-    }
+  baseURL: API_URL
+})
+
+// Attach token to every request automatically
+api.interceptors.request.use((config) => {
+  const token = getToken()
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
   }
+  return config
 })
 
 export const getAllLeads = async () => {
