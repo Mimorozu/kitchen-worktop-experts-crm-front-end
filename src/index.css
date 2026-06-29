@@ -1,0 +1,225 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f5f5f5;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  background: #1a1a2e;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.navbar-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  background: #e94560;
+  color: white;
+}
+
+.logout-btn {
+  background: transparent !important;
+  border: 1px solid white !important;
+}
+
+/* Login */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a2e;
+}
+
+.login-box {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-box h1 {
+  font-size: 1.2rem;
+  color: #e94560;
+  margin-bottom: 0.25rem;
+}
+
+.login-box h2 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: #1a1a2e;
+}
+
+/* Forms */
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #555;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #e94560;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.form-actions button {
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  background: #e94560;
+  color: white;
+}
+
+.form-actions button[type="button"] {
+  background: #eee;
+  color: #333;
+}
+
+.delete-btn {
+  background: #dc2626 !important;
+  margin-right: auto;
+}
+
+/* Dashboard */
+.dashboard-container {
+  padding: 2rem;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-header button {
+  padding: 0.6rem 1.2rem;
+  background: #e94560;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+/* Table */
+.leads-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.leads-table th {
+  background: #1a1a2e;
+  color: white;
+  padding: 0.9rem 1rem;
+  text-align: left;
+  font-size: 0.85rem;
+}
+
+.leads-table td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+}
+
+.lead-row {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.lead-row:hover {
+  background: #f9f9f9;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-new        { background: #dbeafe; color: #1d4ed8; }
+.status-contacted  { background: #fef9c3; color: #854d0e; }
+.status-quoted     { background: #ede9fe; color: #6d28d9; }
+.status-booked     { background: #dcfce7; color: #166534; }
+.status-fitted     { background: #d1fae5; color: #065f46; }
+.status-invoiced   { background: #f0fdf4; color: #14532d; }
+.status-lost       { background: #fee2e2; color: #991b1b; }
+
+/* Detail header */
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Utility */
+.error   { color: #dc2626; margin: 0.5rem 0; font-size: 0.9rem; }
+.loading { padding: 2rem; text-align: center; color: #666; }
