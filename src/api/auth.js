@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'kitchen-worktop-experts-crm-api-production.up.railway.app'
+const API_URL = 'https://kitchen-worktop-experts-crm-api-production.up.railway.app/api'
 
 // sends email and password to your API, gets back a token and saves it
 export const login = async (email, password) => {

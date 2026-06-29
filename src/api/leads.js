@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getToken } from './auth'
 
-const API_URL = 'kitchen-worktop-experts-crm-api-production.up.railway.app'
+const API_URL = 'https://kitchen-worktop-experts-crm-api-production.up.railway.app/api'
 
 const api = axios.create({
   baseURL: API_URL
