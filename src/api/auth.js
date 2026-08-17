@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:5000/api'
+const API_URL = `${import.meta.env.VITE_CRM_API_URL}/api`
 
 // sends email and password to your API, gets back a token and saves it
 export const login = async (email, password) => {

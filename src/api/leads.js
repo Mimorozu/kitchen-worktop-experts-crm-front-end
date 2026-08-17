@@ -1,10 +1,7 @@
 import axios from 'axios'
 import { getToken } from './auth'
 
-const API_ORIGIN = 'http://localhost:5000'
-const API_URL = `${API_ORIGIN}/api`
-
-export { API_ORIGIN }
+const API_URL = `${import.meta.env.VITE_CRM_API_URL}/api`
 
 const api = axios.create({
   baseURL: API_URL
