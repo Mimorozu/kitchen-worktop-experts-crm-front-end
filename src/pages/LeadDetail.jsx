@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getLead, updateLead, deleteLead, addLeadActivity, uploadLeadPhoto, deleteLeadPhoto, API_ORIGIN } from '../api/leads'
+import { getLead, updateLead, deleteLead, addLeadActivity, uploadLeadPhoto, deleteLeadPhoto } from '../api/leads'
 import Navbar from '../components/Navbar'
 import JobCalculator from '../components/JobCalculator'
 import SelectedMaterialField from '../components/SelectedMaterialField'
@@ -70,6 +70,22 @@ export default function LeadDetail() {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
+  // Dropdown fields save immediately on change, same as the Kanban board's drag-drop,
+  // instead of waiting for the separate Edit/Save Changes flow.
+  const handleDropdownChange = async (e) => {
+    const { name, value } = e.target
+    const prevValue = form[name]
+    setForm((f) => ({ ...f, [name]: value }))
+    setLead((l) => ({ ...l, [name]: value }))
+    try {
+      await updateLead(id, { [name]: value })
+    } catch (err) {
+      setForm((f) => ({ ...f, [name]: prevValue }))
+      setLead((l) => ({ ...l, [name]: prevValue }))
+      setError(`Failed to update ${name}`)
+    }
   }
 
   const handleSave = async () => {
@@ -202,7 +218,7 @@ export default function LeadDetail() {
         <div className="form-grid">
         <div className="form-group">
           <label>Size</label>
-          <select name="size" value={form.size} onChange={handleChange}>
+          <select name="size" value={form.size} onChange={handleDropdownChange}>
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
             <option value="Large">Large</option>
@@ -211,7 +227,7 @@ export default function LeadDetail() {
 
         <div className="form-group">
           <label>Material</label>
-          <select name="material" value={form.material} onChange={handleChange}>
+          <select name="material" value={form.material} onChange={handleDropdownChange}>
             <option value="Quartz">Quartz</option>
             <option value="Granite">Granite</option>
             <option value="Porcelain">Porcelain</option>
@@ -286,7 +302,7 @@ export default function LeadDetail() {
         <div className="form-grid">
         <div className="form-group">
           <label>Status</label>
-          <select name="status" value={form.status} onChange={handleChange}>
+          <select name="status" value={form.status} onChange={handleDropdownChange}>
             {STATUSES.map(s => (
               <option key={s} value={s}>{s}</option>
             ))}
@@ -295,7 +311,7 @@ export default function LeadDetail() {
 
         <div className="form-group">
           <label>Source</label>
-          <select name="source" value={form.source} onChange={handleChange}>
+          <select name="source" value={form.source} onChange={handleDropdownChange}>
             {SOURCES.map((s) => (
               <option key={s} value={s}>{s}</option>
             ))}
@@ -368,9 +384,9 @@ export default function LeadDetail() {
               const isImage = /\.(jpe?g|png|webp)$/i.test(photo.filename)
               return (
                 <div key={photo.id} className="photo-thumb">
-                  <a href={`${API_ORIGIN}${photo.url}`} target="_blank" rel="noreferrer">
+                  <a href={photo.url} target="_blank" rel="noreferrer">
                     {isImage ? (
-                      <img src={`${API_ORIGIN}${photo.url}`} alt={photo.filename} />
+                      <img src={photo.url} alt={photo.filename} />
                     ) : (
                       <div className="photo-file-icon">PDF</div>
                     )}
