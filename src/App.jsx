@@ -4,6 +4,8 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import NewLead from './pages/NewLead'
 import LeadDetail from './pages/LeadDetail'
+import Reports from './pages/Reports'
+import Jobs from './pages/Jobs'
 
 // Protected route — redirects to /login if not logged in
 function ProtectedRoute({ children }) {
@@ -31,6 +33,16 @@ export default function App() {
         <Route path="/leads/:id" element={
           <ProtectedRoute>
             <LeadDetail />
+          </ProtectedRoute>
+        } />
+        <Route path="/reports" element={
+          <ProtectedRoute>
+            <Reports />
+          </ProtectedRoute>
+        } />
+        <Route path="/jobs" element={
+          <ProtectedRoute>
+            <Jobs />
           </ProtectedRoute>
         } />
       </Routes>

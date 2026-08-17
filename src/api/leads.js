@@ -1,7 +1,10 @@
 import axios from 'axios'
 import { getToken } from './auth'
 
-const API_URL = 'https://kitchen-worktop-experts-crm-api-production.up.railway.app/api'
+const API_ORIGIN = 'http://localhost:5000'
+const API_URL = `${API_ORIGIN}/api`
+
+export { API_ORIGIN }
 
 const api = axios.create({
   baseURL: API_URL
@@ -38,4 +41,22 @@ export const updateLead = async (id, leadData) => {
 
 export const deleteLead = async (id) => {
   await api.delete(`/leads/${id}`)
+}
+
+export const addLeadActivity = async (id, message) => {
+  const response = await api.post(`/leads/${id}/activity`, { message })
+  return response.data
+}
+
+export const uploadLeadPhoto = async (id, file) => {
+  const formData = new FormData()
+  formData.append('photo', file)
+  const response = await api.post(`/leads/${id}/photos`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
+  return response.data
+}
+
+export const deleteLeadPhoto = async (id, photoId) => {
+  await api.delete(`/leads/${id}/photos/${photoId}`)
 }
