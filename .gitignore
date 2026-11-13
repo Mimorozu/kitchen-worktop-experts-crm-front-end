@@ -24,3 +24,7 @@ server/uploads
 *.njsproj
 *.sln
 *.sw?
+
+# Runtime pricing settings saved by the mock API
+server/pricing.json
+server/users.json

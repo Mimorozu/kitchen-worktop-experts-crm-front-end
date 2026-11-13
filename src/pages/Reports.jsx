@@ -18,7 +18,7 @@ export default function Reports() {
     const fetchLeads = async () => {
       try {
         setLeads(await getAllLeads())
-      } catch (err) {
+      } catch {
         setError('Failed to load leads')
       } finally {
         setLoading(false)

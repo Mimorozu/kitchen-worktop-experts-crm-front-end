@@ -6,6 +6,10 @@ import NewLead from './pages/NewLead'
 import LeadDetail from './pages/LeadDetail'
 import Reports from './pages/Reports'
 import Jobs from './pages/Jobs'
+import PricingSettings from './pages/PricingSettings'
+import VerifyEmail from './pages/VerifyEmail'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 
 // Protected route — redirects to /login if not logged in
 function ProtectedRoute({ children }) {
@@ -20,6 +24,9 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/" element={
           <ProtectedRoute>
             <Dashboard />
@@ -43,6 +50,11 @@ export default function App() {
         <Route path="/jobs" element={
           <ProtectedRoute>
             <Jobs />
+          </ProtectedRoute>
+        } />
+        <Route path="/pricing" element={
+          <ProtectedRoute>
+            <PricingSettings />
           </ProtectedRoute>
         } />
       </Routes>

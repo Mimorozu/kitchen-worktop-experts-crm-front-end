@@ -4,6 +4,7 @@ const NAV_ITEMS = [
   { label: 'Leads', path: '/' },
   { label: 'Jobs', path: '/jobs' },
   { label: 'Reports', path: '/reports' },
+  { label: 'Pricing', path: '/pricing' },
 ]
 
 export default function Sidebar() {

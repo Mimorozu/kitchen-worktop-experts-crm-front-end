@@ -59,7 +59,7 @@ export default function LeadDetail() {
         const data = await getLead(id)
         setLead(data)
         setForm(buildForm(data))
-      } catch (err) {
+      } catch {
         setError('Failed to load lead')
       } finally {
         setLoading(false)
@@ -81,7 +81,7 @@ export default function LeadDetail() {
     setLead((l) => ({ ...l, [name]: value }))
     try {
       await updateLead(id, { [name]: value })
-    } catch (err) {
+    } catch {
       setForm((f) => ({ ...f, [name]: prevValue }))
       setLead((l) => ({ ...l, [name]: prevValue }))
       setError(`Failed to update ${name}`)
@@ -95,7 +95,7 @@ export default function LeadDetail() {
       setLead((l) => ({ ...l, ...updated }))
       setForm(buildForm(updated))
       setEditing(false)
-    } catch (err) {
+    } catch {
       setError('Failed to save changes')
     } finally {
       setSaving(false)
@@ -113,7 +113,7 @@ export default function LeadDetail() {
     try {
       await deleteLead(id)
       navigate('/')
-    } catch (err) {
+    } catch {
       setError('Failed to delete lead')
     }
   }
@@ -130,7 +130,7 @@ export default function LeadDetail() {
       const entry = await addLeadActivity(id, noteText.trim())
       setLead((l) => ({ ...l, activityLog: [...(l.activityLog || []), entry] }))
       setNoteText('')
-    } catch (err) {
+    } catch {
       setError('Failed to add note')
     } finally {
       setAddingNote(false)
@@ -145,7 +145,7 @@ export default function LeadDetail() {
     try {
       const photo = await uploadLeadPhoto(id, file)
       setLead((l) => ({ ...l, photos: [...(l.photos || []), photo] }))
-    } catch (err) {
+    } catch {
       setError('Failed to upload photo')
     } finally {
       setUploading(false)
@@ -156,7 +156,7 @@ export default function LeadDetail() {
     try {
       await deleteLeadPhoto(id, photoId)
       setLead((l) => ({ ...l, photos: l.photos.filter((p) => p.id !== photoId) }))
-    } catch (err) {
+    } catch {
       setError('Failed to delete photo')
     }
   }

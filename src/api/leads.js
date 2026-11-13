@@ -1,20 +1,4 @@
-import axios from 'axios'
-import { getToken } from './auth'
-
-const API_URL = `${import.meta.env.VITE_CRM_API_URL}/api`
-
-const api = axios.create({
-  baseURL: API_URL
-})
-
-// Attach token to every request automatically
-api.interceptors.request.use((config) => {
-  const token = getToken()
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  return config
-})
+import { api } from './client'
 
 export const getAllLeads = async () => {
   const response = await api.get('/leads')
