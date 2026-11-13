@@ -20,7 +20,7 @@ export default function Jobs() {
     const fetchLeads = async () => {
       try {
         setLeads(await getAllLeads())
-      } catch (err) {
+      } catch {
         setError('Failed to load jobs')
       } finally {
         setLoading(false)

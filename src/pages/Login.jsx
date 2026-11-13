@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { login } from '../api/auth'
+import { Link, useNavigate } from 'react-router-dom'
+import { login, errorMessage } from '../api/auth'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -15,7 +15,7 @@ export default function Login() {
       await login(email, password) // function pulled from src/api/auth.js
       navigate('/')
     } catch (err) {
-      setError('Invalid email or password')
+      setError(errorMessage(err, 'Login failed. Check your connection and try again.'))
     }
   }
 
@@ -48,6 +48,9 @@ export default function Login() {
           {error && <p className="error">{error}</p>}
           <button type="submit">Log In</button>
         </form>
+        <p className="auth-links">
+          <Link to="/forgot-password">Forgot password?</Link>
+        </p>
       </div>
     </div>
   )

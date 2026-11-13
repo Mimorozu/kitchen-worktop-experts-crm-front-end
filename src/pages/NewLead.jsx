@@ -46,7 +46,7 @@ export default function NewLead() {
     try {
       await createLead(form)
       navigate('/')
-    } catch (err) {
+    } catch {
       setError('Failed to create lead')
     }
   }

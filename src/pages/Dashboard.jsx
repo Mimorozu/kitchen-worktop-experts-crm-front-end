@@ -29,7 +29,7 @@ export default function Dashboard() {
       try {
         const data = await getAllLeads()
         setLeads(data)
-      } catch (err) {
+      } catch {
         setError('Failed to load leads')
       } finally {
         setLoading(false)
@@ -48,7 +48,7 @@ export default function Dashboard() {
     setLeads((ls) => ls.map((l) => (l.id === leadId ? { ...l, status } : l)))
     try {
       await updateLead(leadId, { status })
-    } catch (err) {
+    } catch {
       setLeads(prev)
       setError('Failed to update status')
     }
@@ -139,6 +139,7 @@ export default function Dashboard() {
           </div>
 
           {view === 'table' ? (
+            <div className="table-scroll">
             <table className="leads-table">
               <thead>
                 <tr>
@@ -183,6 +184,7 @@ export default function Dashboard() {
                 )}
               </tbody>
             </table>
+            </div>
           ) : (
             <KanbanBoard leads={visibleLeads} onStatusChange={handleStatusChange} />
           )}

@@ -1,9 +1,9 @@
-import { SLAB_PRICES } from '../data/slabPrices'
-
-const MATERIAL_NAMES = SLAB_PRICES.map((s) => s.name)
+import { usePricing } from '../hooks/usePricing'
 
 export default function SelectedMaterialField({ value, onChange, editing }) {
-  const isKnown = MATERIAL_NAMES.includes(value)
+  const { pricing } = usePricing()
+  const materialNames = pricing ? pricing.slabs.map((s) => s.name) : []
+  const isKnown = materialNames.includes(value)
   const isOther = value === '' || !isKnown
 
   const handleSelectChange = (e) => {
@@ -19,7 +19,7 @@ export default function SelectedMaterialField({ value, onChange, editing }) {
     <>
       <select value={isOther ? 'Other' : value} onChange={handleSelectChange}>
         <option value="Other">Other</option>
-        {MATERIAL_NAMES.map((name) => (
+        {materialNames.map((name) => (
           <option key={name} value={name}>{name}</option>
         ))}
       </select>
