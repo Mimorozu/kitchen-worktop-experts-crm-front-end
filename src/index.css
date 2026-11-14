@@ -1409,3 +1409,51 @@ body {
 .job-card:hover {
   background: rgba(255, 255, 255, 0.10);
 }
+
+/* Polish pass: contrast, focus, browser surfaces, data numerals, disabled states */
+:root {
+  --text-faint: #8a8aa0; /* was #6b6b80: too low for small text on the dark glass */
+}
+
+::selection {
+  background: rgba(233, 69, 96, 0.35);
+  color: #ffffff;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+
+button,
+a,
+.sidebar-link,
+.navbar-brand,
+.lead-row,
+.job-card,
+.kanban-card {
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
+}
+
+button:disabled,
+input:disabled,
+select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.leads-table td,
+.stat-card-value,
+.bar-row-count,
+.calc-summary-row,
+.calc-summary-total,
+.price-input,
+.kanban-card-quote,
+.job-card-meta {
+  font-variant-numeric: tabular-nums;
+}
