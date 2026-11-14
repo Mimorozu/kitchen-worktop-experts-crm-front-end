@@ -1457,3 +1457,26 @@ select:disabled {
 .job-card-meta {
   font-variant-numeric: tabular-nums;
 }
+
+/* Login: primary button styled like the other primary actions */
+.login-box button[type="submit"] {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-box button[type="submit"]:hover {
+  background: var(--accent-hover);
+}
+
+.login-box button[type="submit"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
