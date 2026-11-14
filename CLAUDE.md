@@ -36,6 +36,25 @@ React 19 + Vite SPA frontend (this repo, `kitchen-worktop-crm`), deployed to Ver
 - Tests: `npm test` runs `tests/` with Node's built-in runner. Route tests use in-memory fakes for Prisma and Cloudinary, so they never touch the database or Cloudinary. Keep it that way.
 - Input rules live in `src/validation.js`. Add new lead fields there, or the route will drop them.
 
+## Third-party services
+
+Every outside service the app depends on. Keep this list current when adding or removing one.
+
+| Service | Used for | Where it is used | Config (names only) |
+|---|---|---|---|
+| Vercel | Frontend hosting (production deploys from `main`) | Frontend repo | Production env `VITE_CRM_API_URL` |
+| Railway | Backend hosting (auto-deploys from `main`) | Backend repo | Service variables below |
+| Neon | Postgres database | Backend (`DATABASE_URL`) | `DATABASE_URL` |
+| Cloudinary | Lead photo and PDF storage (private delivery, signed URLs) | Backend `src/photos.js`, `src/cloudinary.js` | `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` |
+| Resend | Verification and password-reset emails | Backend `src/mailer.js` | `RESEND_API_KEY`, `FRONTEND_URL`, optional `MAIL_FROM` |
+| GoDaddy | DNS for `kitchenworktopexperts.co.uk`, including the `mail.` sending records | Manual, DNS panel | None |
+| GitHub | Source hosting and pull requests (both repos) | Both repos | None (`gh` CLI) |
+| Airtable | Legacy lead import only | `kitchen-worktop-crm-api/migrate-airtable.js` (one-off script, not used at runtime) | `AIRTABLE_TOKEN`, `AIRTABLE_BASE_ID` |
+
+Backend variables also include `JWT_SECRET` and `API_KEY` (website lead form). These are internal, not third-party.
+
+Runtime libraries like jsPDF and bcryptjs are not services and are not listed here.
+
 ## Configuration
 
 - Frontend reads the backend base URL from `import.meta.env.VITE_CRM_API_URL` (set in `.env`, which is git-ignored). Locally it points at the mock API (`http://localhost:5000`); in production it points at the Railway backend. Never hardcode `localhost` in API calls.
@@ -75,6 +94,14 @@ A CRM to manage leads coming from Kitchenworktopexperts.com
 - App should be mobile firendly 
 
 
+## Design style
+
+- Glassmorphism. Use semi-transparent panels with `backdrop-filter: blur()`, so the background shows through softly.
+- Thin, semi-transparent light borders to define cards and tiles against the background.
+- Layered depth: cards, navigation bars and action bands float over a gradient or mesh backdrop.
+- Keep text sharp and high-contrast on translucent panels, so it stays readable.
+- Note: the current styles in `src/index.css` are flat dark surfaces. Glassmorphism is the target, not yet applied.
+
 ## Working conventions
 
 - Enforce all permission and visibility rules on the server, never only in the UI.
@@ -90,3 +117,12 @@ A CRM to manage leads coming from Kitchenworktopexperts.com
 - configure the application for secure deployment. Enforce HTTPS, ensure secrets are stored securely, restrict direct database access from the public internet, and add logging for authentication attempts, API errors, and unusual traffic patetrns so suspicious behavoir can be detected.
 - before each push, scan the entire project for secrets and credentials. Ensure API keys, database service keys, and tokens are are never comitted to the repository. Move all secrets to secure enviroment variables and sure they are only used on the server. 
 - Identify every place where user input enters the system including forms, APIs, uploads and query parameters. Add strict validation and sanitation to prevent SQL injection, command injection, script injection, and unsafe file uploads. Reject invalid data and enforce strict input types 
+## To-do
+
+- [ ] Verify `kitchenworktopexperts.co.uk` in Zoho Mail. The TXT record `zoho-verification=zb02033876.zmverify.zoho.uk` is saved in GoDaddy. Retry the check in about an hour, since Zoho caches the earlier miss.
+- [ ] Add Zoho's MX records in GoDaddy once the domain is verified (get the exact values from Zoho's DNS mapping page).
+- [ ] Create `ethan@kitchenworktopexperts.co.uk` in Zoho Mail. The user chooses the password.
+- [ ] Revoke the old Resend key `kwe-crm-production` (the new one is `kwe-crm-production-2`).
+- [ ] Change the password for `mimorozu@gmail.com` (it was shared in chat).
+- [ ] Apply or discard the staged Railway change ("Apply 1 change") on the API service before any dashboard deploy.
+- [ ] Set up the WhatsApp Business account, template `new_lead_alert` (four parameters: name, phone, postcode, material), and Railway variables, then merge PR #5.

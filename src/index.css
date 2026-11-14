@@ -1339,3 +1339,153 @@ body {
     padding: 1.75rem 1.25rem;
   }
 }
+
+/* Glassmorphism theme: translucent panels with blur over a mesh backdrop */
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.07);
+  --glass-bg-strong: rgba(20, 20, 32, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-blur: blur(16px) saturate(140%);
+}
+
+body {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(233, 69, 96, 0.28), transparent 42%),
+    radial-gradient(circle at 85% 15%, rgba(96, 165, 250, 0.22), transparent 40%),
+    radial-gradient(circle at 60% 90%, rgba(167, 139, 250, 0.22), transparent 45%),
+    linear-gradient(160deg, #0b0b13 0%, #14101f 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+.navbar,
+.sidebar,
+.form-container,
+.login-box,
+.stat-card,
+.report-panel,
+.job-card,
+.kanban-card,
+.kanban-column,
+.activity-panel,
+.detail-header,
+.leads-table,
+.dashboard-container .view-toggle,
+.pricing-panel {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.navbar,
+.sidebar {
+  background: var(--glass-bg-strong);
+}
+
+.leads-table th {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.leads-table td,
+.leads-table th {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+.search-input,
+.dashboard-toolbar select,
+.price-input {
+  background: rgba(10, 10, 18, 0.55);
+  border-color: var(--glass-border);
+}
+
+.lead-row:hover,
+.sidebar-link:hover,
+.kanban-card:hover,
+.job-card:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+/* Polish pass: contrast, focus, browser surfaces, data numerals, disabled states */
+:root {
+  --text-faint: #8a8aa0; /* was #6b6b80: too low for small text on the dark glass */
+}
+
+::selection {
+  background: rgba(233, 69, 96, 0.35);
+  color: #ffffff;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+
+button,
+a,
+.sidebar-link,
+.navbar-brand,
+.lead-row,
+.job-card,
+.kanban-card {
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
+}
+
+button:disabled,
+input:disabled,
+select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.leads-table td,
+.stat-card-value,
+.bar-row-count,
+.calc-summary-row,
+.calc-summary-total,
+.price-input,
+.kanban-card-quote,
+.job-card-meta {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Login: primary button styled like the other primary actions */
+.login-box button[type="submit"] {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-box button[type="submit"]:hover {
+  background: var(--accent-hover);
+}
+
+.login-box button[type="submit"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Lead header: sits on the form card, so it must not add its own glass panel */
+.detail-header {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+}
